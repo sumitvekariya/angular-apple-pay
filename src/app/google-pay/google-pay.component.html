@@ -1,0 +1,29 @@
+<!-- <google-pay-button environment="TEST" [buttonColor]="buttonColor" [buttonType]="buttonType"
+[buttonSizeMode]="isCustomSize ? 'fill' : 'static'" [paymentRequest]="paymentRequest" [style.width.px]="buttonWidth"
+[style.height.px]="buttonHeight" (loadpaymentdata)="onLoadPaymentData($event)"></google-pay-button> -->
+
+
+<google-pay-button
+          environment="TEST"
+          [buttonType]="buttonType"
+          [buttonColor]="buttonColor"
+          [buttonLocale]="buttonLocale"
+          [existingPaymentMethodRequired]="existingPaymentMethodRequired"
+          [paymentRequest]="{
+            apiVersion: paymentRequest.apiVersion,
+            apiVersionMinor: paymentRequest.apiVersionMinor,
+            allowedPaymentMethods: paymentRequest.allowedPaymentMethods,
+            merchantInfo: paymentRequest.merchantInfo,
+            transactionInfo: {
+              totalPriceStatus: 'FINAL',
+              totalPriceLabel: 'Total',
+              totalPrice: amount,
+              currencyCode: 'USD',
+              countryCode: 'US'
+            },
+            callbackIntents: ['PAYMENT_AUTHORIZATION']
+          }"
+          (loadpaymentdata)="onLoadPaymentData($event)"
+          (error)="onError($event)"
+          [paymentAuthorizedCallback]="onPaymentDataAuthorized"
+        ></google-pay-button>
